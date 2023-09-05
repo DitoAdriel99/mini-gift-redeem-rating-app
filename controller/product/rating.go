@@ -2,7 +2,6 @@ package product
 
 import (
 	"encoding/json"
-	"fmt"
 	"go-learn/entities"
 	"go-learn/library/response"
 	"go-learn/service"
@@ -60,7 +59,6 @@ func (c *_ControllerProductRating) Rating(w http.ResponseWriter, r *http.Request
 	}
 	id, _ := uuid.Parse(rawID)
 	if err := c.service.ProductService.Rating(id, &payload, bearer); err != nil {
-		fmt.Println("errr", err)
 		response := *errResponse.WithError(err)
 		output, _ := json.Marshal(response)
 		w.WriteHeader(http.StatusBadRequest)

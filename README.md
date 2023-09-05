@@ -1,4 +1,12 @@
 # Gift Mini App
+The Gift Redemption and Rating Application is a web-based platform that allows users to log in, redeem gifts, and rate them. This application provides an interactive and engaging experience for users to access and utilize a variety of gift options while providing feedback through ratings.
+
+## Features
+- User Authentication: Create an account or log in securely.
+- Gift Redemption: Browse, select, and redeem available gifts.
+- Rating System: Rate and provide feedback on redeemed gifts.
+- Role-Based Access Control: Admins manage the gift catalog.
+- Token-Based Authentication: Secure API endpoints.
 ## Tech Specifications
 
 ### Libraries/Frameworks Used

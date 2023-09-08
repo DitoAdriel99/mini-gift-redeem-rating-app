@@ -14,7 +14,7 @@ func (s *_Service) Redeem(id uuid.UUID, payload *entities.PayloadRedeem, bearer 
 		time     = time.Now().Local()
 		newId, _ = uuid.NewUUID()
 	)
-	emailUser, err := jwt_parse.GetEmailFromToken(bearer)
+	claims, err := jwt_parse.GetClaimsFromToken(bearer)
 	if err != nil {
 		log.Println("Get Email From Token error: ", err)
 		return err
@@ -37,7 +37,7 @@ func (s *_Service) Redeem(id uuid.UUID, payload *entities.PayloadRedeem, bearer 
 		ProductID: data.ID,
 		QtyReq:    payload.Qty,
 		QtyAfter:  redeemQty,
-		Email:     emailUser,
+		Email:     claims.Email,
 		CreatedAt: time,
 		UpdatedAt: &time,
 	}

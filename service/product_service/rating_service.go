@@ -15,7 +15,7 @@ func (s *_Service) Rating(id uuid.UUID, payload *entities.PayloadRating, bearer 
 		newId, _ = uuid.NewUUID()
 	)
 
-	emailUser, err := jwt_parse.GetEmailFromToken(bearer)
+	claims, err := jwt_parse.GetClaimsFromToken(bearer)
 	if err != nil {
 		log.Println("Get Email From Token error: ", err)
 		return err
@@ -30,7 +30,7 @@ func (s *_Service) Rating(id uuid.UUID, payload *entities.PayloadRating, bearer 
 	ratingReq := entities.RatingRequired{
 		ID:        newId,
 		ProductID: data.ID,
-		Email:     emailUser,
+		Email:     claims.Email,
 		Rating:    payload.Rating,
 		CreatedAt: time,
 		UpdatedAt: &time,

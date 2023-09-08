@@ -76,7 +76,6 @@ func validateToken(param string, repo repositories.Repo) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		log.Println("Token is valid")
 		return userData.Role, nil
 	} else {
 		log.Println("Token is Invalid")

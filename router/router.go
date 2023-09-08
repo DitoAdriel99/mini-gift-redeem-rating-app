@@ -5,6 +5,7 @@ import (
 	"go-learn/controller/product"
 	"go-learn/middleware"
 	"go-learn/repositories"
+	"go-learn/sdk"
 	"go-learn/service"
 	"net/http"
 
@@ -16,6 +17,7 @@ func New() http.Handler {
 	//set dependency
 	repo := repositories.NewRepo()
 	serv := service.NewService(repo)
+	sdk := sdk.NewSDK()
 
 	// middlewares
 	tokenValidator := middleware.NewTokenValidator(*repo)
@@ -25,6 +27,9 @@ func New() http.Handler {
 	controllerRegister := auth.NewControllerRegister(*serv)
 	controllerStatus := auth.NewControllerStatus(*serv)
 
+	// set logs
+	logsIntegrate := middleware.NewLogsIntegrate(*sdk)
+	router.Use(logsIntegrate.CreateLogs)
 	// call controllers product
 	controllerProductCreate := product.NewControllerProductCreate(*serv)
 	controllerProductUpdate := product.NewControllerProductUpdate(*serv)

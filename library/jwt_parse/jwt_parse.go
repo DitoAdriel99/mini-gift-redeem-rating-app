@@ -9,21 +9,21 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func GetEmailFromToken(param string) (string, error) {
+func GetClaimsFromToken(param string) (*entities.Claims, error) {
 	tokenString := strings.TrimPrefix(param, "Bearer ")
 	token, err := jwt.ParseWithClaims(tokenString, &entities.Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return entities.JWTKEY, nil
 	})
 
 	if err != nil {
-		return "", fmt.Errorf("Error parsing token: %s", err)
+		return nil, fmt.Errorf("Error parsing token: %s", err)
 	}
 
 	if claims, ok := token.Claims.(*entities.Claims); ok && token.Valid {
 		log.Println("Token is valid")
-		return claims.Email, nil
+		return claims, nil
 	} else {
 		log.Println("Token is Invalid")
-		return "", fmt.Errorf("Invalid token")
+		return nil, fmt.Errorf("Invalid token")
 	}
 }

@@ -55,6 +55,8 @@ DB_URL=             #postgres://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/
 
 KEY=                #change to your key
 EXPIRED=            #change to your expiration time
+
+LOGS_SERVICE=       #change to your logs service url
 # Run App
 make start
 

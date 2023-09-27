@@ -3,8 +3,10 @@ package middleware
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"go-learn/entities"
 	"go-learn/library/jwt_parse"
+	"go-learn/library/pubsubx"
 	"go-learn/sdk"
 	"io"
 	"net/http"
@@ -64,7 +66,9 @@ func (l *LogsIntegrate) CreateLogs(next http.Handler) http.Handler {
 		payload.Fullname = "-"
 		payload.Email = "-"
 
-		l.SDK.LogsSDK.CreateLogs(payload)
+		if err := pubsubx.PushMessage(payload); err != nil {
+			fmt.Println("error pushing meessage", err)
+		}
 
 	})
 }

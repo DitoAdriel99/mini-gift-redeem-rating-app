@@ -57,6 +57,10 @@ KEY=                #change to your key
 EXPIRED=            #change to your expiration time
 
 LOGS_SERVICE=       #change to your logs service url
+
+PROJECTID=          #change to your pubsub project id
+TOPICID=            #change to your pubsub topic id
+SUBSID=             #change to your pubsub subs id
 # Run App
 make start
 

@@ -14,6 +14,7 @@ The Gift Redemption and Rating Application is a web-based platform that allows u
 - Go (version 1.19)
 - Gorilla Mux
 - PostgreSQL
+- Pubsub
 
 ### Architecture/Modularity
 

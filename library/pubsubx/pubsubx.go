@@ -3,22 +3,31 @@ package pubsubx
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"go-learn/entities"
+	"io/ioutil"
 	"log"
 	"os"
 	"sync"
 	"sync/atomic"
 
 	"cloud.google.com/go/pubsub"
+	"google.golang.org/api/option"
 )
 
-func PushMessage(payload entities.LogsPayload) error {
+func PushMessage(payload entities.LogsPayload) {
 	log.Println("PushMessage Running........")
 	ctx := context.Background()
-	client, err := pubsub.NewClient(ctx, os.Getenv("PROJECTID"))
+
+	key, err := ioutil.ReadFile(os.Getenv("ACCOUNT_PATH"))
 	if err != nil {
-		return fmt.Errorf("pubsub.NewClient: %w", err)
+		log.Println("readFile:", err)
+		return
+	}
+
+	client, err := pubsub.NewClient(ctx, os.Getenv("PROJECTID"), option.WithCredentialsJSON(key))
+	if err != nil {
+		log.Println("pubsub.NewClient:", err)
+		return
 	}
 
 	defer client.Close()
@@ -47,8 +56,9 @@ func PushMessage(payload entities.LogsPayload) error {
 	wg.Wait()
 
 	if errors > 0 {
-		return fmt.Errorf("messages did not publish successfully")
+		log.Println("messages did not publish successfully")
+		return
 	}
 
-	return nil
+	return
 }

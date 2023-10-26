@@ -61,6 +61,8 @@ LOGS_SERVICE=       #change to your logs service url
 PROJECTID=          #change to your pubsub project id
 TOPICID=            #change to your pubsub topic id
 SUBSID=             #change to your pubsub subs id
+
+ACCOUNT_PATH=       #change to your path to service account
 # Run App
 make start
 
